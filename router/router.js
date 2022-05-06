@@ -1,8 +1,17 @@
 import Router from "express";
 import Errors from "../models/Errors.js";
+import cors from "cors";
+import express from "express";
+import bodyParser from "body-parser";
 
 const router = new Router()
 
+router.use(cors())
+router.use(express.raw({limit: '50mb'}));
+router.use(express.json({limit: '50mb'}));
+router.use(bodyParser.json({ limit: '50mb' }));
+router.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+router.use(bodyParser.raw({ limit: '50mb', extended: true }));
 router.post('/errors',async (req,res)=>{
         try {
             const {detail, title, route} = req.body
